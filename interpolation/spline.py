@@ -1,3 +1,4 @@
+from matrix_handling.LUfactorization import LU_decompose, solve_LU
 from matrix_handling import *
 
 
@@ -5,24 +6,21 @@ class SplineInterpolation:
     def __init__(self, data):
         self.n = len(data)
         self.data = data
+        self.params_ready = False
+        self.params = None
 
-    def interpolate(self, xp, new_n, interpolation_data):
-        y_result = 0
-        xp = float(xp)
-
-        print(y_result)
-        return y_result
+    def interpolate(self, x, x_in):
+        for i in range(1, len(x_in)):
+            if x_in[i-1] <= x <= x_in[i]:
+                a, b, c, d = self.params[i]
+                h = x - x_in[i-1]
+                return a + b * h + c * h ** 2 + d * h ** 3
+        return -99999
 
     def pivoting(self):
         pass
 
-    def get_parameters(self, n, data):
-
-        x = []
-        y = []
-        for point in data[1:]:
-            x.append(float(point[0]))
-            y.append(float(point[1]))
+    def get_parameters(self, n, x, y):
 
         A = []
         for i in range(4*(n-1)):
@@ -86,18 +84,37 @@ class SplineInterpolation:
         print(A)
         return A, b
 
+    def fill_parameters_array(self, results):
+        row = []
+        for param in results:
+            row.append(param)
+            if len(row) == 4:
+                self.params.append(row.copy())
+                row.clear()
+        return self.params
+
     def interpolate_function(self, k):
 
         interpolation_data = self.data[0::k]
         interpolated_y = []
 
-        A, b = self.get_parameters(len(interpolation_data), interpolation_data)
+        x_in = []
+        y_in = []
+        for point in interpolation_data:
+            x_in.append(float(point[0]))
+            y_in.append(float(point[1]))
 
-        '''
+        A, b = self.get_parameters(len(interpolation_data), x_in, y_in)
+        
+        results = solve_LU(len(A),A,b)
+
+        self.params = self.fill_parameters_array(results)
+
+        
         for point in self.data[:-1]:
             x, y = point
             interpolated_y.append(self.interpolate(
-                float(x), len(interpolation_data), interpolation_data))
+                float(x), x_in))
 
         return interpolated_y
-        '''
+        

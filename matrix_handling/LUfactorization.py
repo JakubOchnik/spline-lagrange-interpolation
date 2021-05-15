@@ -42,7 +42,7 @@ def backward_substitution(N, U, y):
 def solve_LU(N, A_orig, b_orig, print_info=False):
     A = copy.deepcopy(A_orig)
     b = copy.deepcopy(b_orig)
-    startTime = time.time()
+    # startTime = time.time()
     L, U = LU_decompose(N, A)
 
     # Ly = b
@@ -50,9 +50,11 @@ def solve_LU(N, A_orig, b_orig, print_info=False):
     # Ux = y
     x = backward_substitution(N, U, y)
     
+    '''
     res = norm(vec_subtract(dot_product(A, x), b))
     elapsedTime = time.time() - startTime
     if print_info:
         print("Last norm: " + str(res))
         print("Elapsed time:" + str(elapsedTime))
-    return x, elapsedTime
+    '''
+    return x
