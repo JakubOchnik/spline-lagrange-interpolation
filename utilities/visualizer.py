@@ -7,7 +7,6 @@ def plot_points(data, name):
     for point in data:
         x.append(float(point[0]))
         y.append(float(point[1]))
-    print(len(x))
 
     plt.plot(x, y)
     plt.title(name)
@@ -21,7 +20,6 @@ def plot_interpolation(data, name, interpolated_y):
     for point in data[1:]:
         x.append(float(point[0]))
         y.append(float(point[1]))
-    print(len(x))
 
     plt.semilogy(x, y)
     plt.semilogy(x, interpolated_y)

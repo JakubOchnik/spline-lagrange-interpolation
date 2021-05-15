@@ -1,8 +1,8 @@
 import os
 import csv
 
-def load_file(name):
-    with open(name, 'r') as f:
+def load_file(path):
+    with open(path, 'r') as f:
         data = list(csv.reader(f))
         if (isinstance(data[0][0], str)):
             data = data[1:]

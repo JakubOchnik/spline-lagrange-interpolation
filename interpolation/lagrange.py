@@ -17,7 +17,6 @@ class LagrangeInterpolation:
                 else:
                     continue
             y_result += p * float(yi)
-        print(y_result)
         return y_result
     
     def interpolate_function(self, k):
