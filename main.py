@@ -15,3 +15,5 @@ if __name__ == "__main__":
     
     plot_interpolation(data, FILE_NAME, interpolated_points)
 
+    interpolator = SplineInterpolation(data)
+
