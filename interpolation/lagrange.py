@@ -21,10 +21,10 @@ class LagrangeInterpolation:
     
     def interpolate_function(self, k):
 
-        interpolation_data = self.data[1::k]
+        interpolation_data = self.data[0::k]
         interpolated_y = []
 
-        for point in self.data[1:]:
+        for point in self.data[:-1]:
             x, y = point
             interpolated_y.append(self.interpolate(float(x), len(interpolation_data), interpolation_data))
 
