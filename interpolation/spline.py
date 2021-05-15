@@ -1,3 +1,5 @@
+from matrix_handling import *
+
 class SplineInterpolation:
     def __init__(self, data):
         self.n = len(data)
@@ -9,6 +11,12 @@ class SplineInterpolation:
         
         print(y_result)
         return y_result
+    
+    def pivoting(self):
+        pass
+
+    def get_parameters(self):
+        pass
     
     def interpolate_function(self, k):
 
