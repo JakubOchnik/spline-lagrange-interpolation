@@ -8,12 +8,13 @@ FILE_NAME = "sample.csv"
 
 if __name__ == "__main__":
     data = load_file(FOLDER_NAME + FILE_NAME)
-    plot_points(data, FILE_NAME)
+    #plot_points(data, FILE_NAME)
 
-    interpolator = LagrangeInterpolation(data)
-    interpolated_points = interpolator.interpolate_function(10)
+    #interpolator = LagrangeInterpolation(data)
+    #interpolated_points = interpolator.interpolate_function(10)
     
-    plot_interpolation(data, FILE_NAME, interpolated_points)
+    #plot_interpolation(data, FILE_NAME, interpolated_points)
 
     interpolator = SplineInterpolation(data)
+    interpolator.interpolate_function(10)
 
