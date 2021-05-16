@@ -2,7 +2,7 @@ class LagrangeInterpolation:
     def __init__(self, data):
         self.n = len(data)
         self.data = data
-    
+
     def interpolate(self, xp, new_n, interpolation_data):
         y_result = 0
         xp = float(xp)
@@ -18,7 +18,7 @@ class LagrangeInterpolation:
                     continue
             y_result += p * float(yi)
         return y_result
-    
+
     def interpolate_function(self, k):
 
         interpolation_data = self.data[0::k]
@@ -26,6 +26,7 @@ class LagrangeInterpolation:
 
         for point in self.data[:-1]:
             x, y = point
-            interpolated_y.append(self.interpolate(float(x), len(interpolation_data), interpolation_data))
+            interpolated_y.append(self.interpolate(
+                float(x), len(interpolation_data), interpolation_data))
 
         return interpolated_y

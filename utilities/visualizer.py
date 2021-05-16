@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 def plot_points(data, name):
 
     x = []
@@ -13,6 +14,7 @@ def plot_points(data, name):
     plt.ylabel('Height')
     plt.xlabel('Distance')
     plt.show()
+
 
 def plot_interpolation(data, name, interpolated_y, type="semilogy"):
     x = []

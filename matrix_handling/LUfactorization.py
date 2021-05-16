@@ -5,6 +5,7 @@ import math
 
 from matrix_handling.matrix_essentials import *
 
+
 def pivoting(U, L, P, i):
     pivot = abs(U[i][i])
     pivot_index = i
@@ -14,12 +15,12 @@ def pivoting(U, L, P, i):
         if abs(U[j][i]) > pivot:
             pivot = abs(U[j][i])
             pivot_index = j
-    
+
     if U[pivot_index][i] == 0:
         print(i)
         print("Matrix is singular")
         return
-    
+
     if pivot_index != i:
         for j in range(len(U)):
             if j >= i:
@@ -27,6 +28,7 @@ def pivoting(U, L, P, i):
             else:
                 L[i][j], L[pivot_index][j] = L[pivot_index][j], L[i][j]
             P[i][j], P[pivot_index][j] = P[pivot_index][j], P[i][j]
+
 
 def LU_decompose(N, A):
     U = copy.deepcopy(A)
@@ -74,5 +76,5 @@ def solve_LU(N, A_orig, b_orig, print_info=False):
     y = fwd_substitution(N, L, b)
     # Ux = y
     x = backward_substitution(N, U, y)
-    
+
     return x

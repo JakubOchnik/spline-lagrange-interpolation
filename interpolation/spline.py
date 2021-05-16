@@ -22,7 +22,7 @@ class SplineInterpolation:
             A.append([0]*(4*(n-1)))
 
         b = [0] * (4*(n-1))
-        
+
         # conditions startup
 
         # 1. Sj(xj) = f(xj)
@@ -52,30 +52,30 @@ class SplineInterpolation:
             h = x[i] - x[i-1]
 
             # 1. Sj(xj) = f(xj)
-        
+
             A[4 * i][4*i] = 1
             b[4*i] = y[i]
-        
+
             # 2. Sj(xj+1) = f(xj+1)
             A[4*i + 1][4*i] = 1
             A[4*i + 1][4*i + 1] = h
             A[4*i + 1][4*i + 2] = h ** 2
             A[4*i + 1][4*i + 3] = h ** 3
             b[4 * i + 1] = y[i+1]
-        
+
             # 3. poj pochodna
-            A[4*i + 2][4*(i - 1) + 1] = 1 # b0
-            A[4*i + 2][4*(i - 1) + 2] = 2 * h # c0
-            A[4*i + 2][4*(i - 1) + 3] = 3 * h ** 2 # d0
-            A[4*i + 2][4* i + 1] = -1 # b1
+            A[4*i + 2][4*(i - 1) + 1] = 1  # b0
+            A[4*i + 2][4*(i - 1) + 2] = 2 * h  # c0
+            A[4*i + 2][4*(i - 1) + 3] = 3 * h ** 2  # d0
+            A[4*i + 2][4 * i + 1] = -1  # b1
             b[4 * i + 2] = 0
 
             # 4. 2nd degree
-            A[4* i + 3][4*(i-1) + 2] = 2 # 2 c0
-            A[4* i + 3][4*(i-1) + 3] = 6 * h # 6h d0
-            A[4* i + 3][4*i + 2] = -2 # c1
+            A[4 * i + 3][4*(i-1) + 2] = 2  # 2 c0
+            A[4 * i + 3][4*(i-1) + 3] = 6 * h  # 6h d0
+            A[4 * i + 3][4*i + 2] = -2  # c1
             b[4*i + 3] = 0
-        
+
         return A, b
 
     def fill_parameters_array(self, results):
@@ -100,7 +100,7 @@ class SplineInterpolation:
             y_in.append(float(point[1]))
 
         A, b = self.get_parameters(len(interpolation_data), x_in, y_in)
-        results = solve_LU(len(A),A,b)
+        results = solve_LU(len(A), A, b)
 
         self.params = self.fill_parameters_array(results)
 
@@ -110,4 +110,3 @@ class SplineInterpolation:
                 float(x), x_in))
 
         return interpolated_y
-        
