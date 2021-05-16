@@ -1,7 +1,5 @@
 import numpy as np
 import copy
-import time
-import math
 
 from matrix_handling.matrix_essentials import *
 
@@ -17,9 +15,10 @@ def pivoting(U, L, P, i):
             pivot_index = j
 
     if U[pivot_index][i] == 0:
-        print(i)
         print("Matrix is singular")
         return
+
+    # replacing columns to remove zeros from the diagonal
 
     if pivot_index != i:
         for j in range(len(U)):
@@ -66,10 +65,9 @@ def backward_substitution(N, U, y):
     return x
 
 
-def solve_LU(N, A_orig, b_orig, print_info=False):
+def solve_LU(N, A_orig, b_orig):
     A = copy.deepcopy(A_orig)
     b = copy.deepcopy(b_orig)
-    # startTime = time.time()
     L, U = LU_decompose(N, A)
 
     # Ly = b

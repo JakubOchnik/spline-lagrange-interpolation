@@ -38,11 +38,11 @@ class SplineInterpolation:
         b[1] = y[1]
 
         # border conditions
-        # S_0 '' (x_0) = 0
+        # S_0"(x_0) = 0
         A[2][2] = 1
         b[2] = 0
 
-        # S_n-1 '' (x_n) = 0
+        # S_n-1"(x_n) = 0
         h = x[len(x) - 1] - x[len(x) - 2]
         A[3][4*(len(x)-2)+2] = 2
         A[3][4*(len(x)-2)+3] = 6*h
@@ -63,14 +63,14 @@ class SplineInterpolation:
             A[4*i + 1][4*i + 3] = h ** 3
             b[4 * i + 1] = y[i+1]
 
-            # 3. poj pochodna
+            # 3. S_0'(x1) = S_1'(x1)
             A[4*i + 2][4*(i - 1) + 1] = 1  # b0
             A[4*i + 2][4*(i - 1) + 2] = 2 * h  # c0
             A[4*i + 2][4*(i - 1) + 3] = 3 * h ** 2  # d0
             A[4*i + 2][4 * i + 1] = -1  # b1
             b[4 * i + 2] = 0
 
-            # 4. 2nd degree
+            # 4. S_0"(x_1) = S_1"(x1)
             A[4 * i + 3][4*(i-1) + 2] = 2  # 2 c0
             A[4 * i + 3][4*(i-1) + 3] = 6 * h  # 6h d0
             A[4 * i + 3][4*i + 2] = -2  # c1
