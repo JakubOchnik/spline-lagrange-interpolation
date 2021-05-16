@@ -5,16 +5,41 @@ import math
 
 from matrix_handling.matrix_essentials import *
 
+def pivoting(U, L, P, i):
+    pivot = abs(U[i][i])
+    pivot_index = i
+
+    # searching for pivot for each column below the diagonal
+    for j in range(i+1, len(U)):
+        if abs(U[j][i]) > pivot:
+            pivot = abs(U[j][i])
+            pivot_index = j
+    
+    if U[pivot_index][i] == 0:
+        print(i)
+        print("Matrix is singular")
+        return
+    
+    if pivot_index != i:
+        for j in range(len(U)):
+            if j >= i:
+                U[i][j], U[pivot_index][j] = U[pivot_index][j], U[i][j]
+            else:
+                L[i][j], L[pivot_index][j] = L[pivot_index][j], L[i][j]
+            P[i][j], P[pivot_index][j] = P[pivot_index][j], P[i][j]
 
 def LU_decompose(N, A):
-    # utworzenie L i U
     U = copy.deepcopy(A)
     L = make_eye(N)
+    P = make_eye(N)
     for k in range(N-1):
+
+        pivoting(U, L, P, k)
+
         for j in range(k+1, N):
             L[j][k] = U[j][k]/U[k][k]
             for i in range(k, N):
-                U[j][i] = U[j][i] - L[j][k]*U[k][i]
+                U[j][i] = U[j][i] - L[j][k] * U[k][i]
 
     return L, U
 
@@ -50,11 +75,4 @@ def solve_LU(N, A_orig, b_orig, print_info=False):
     # Ux = y
     x = backward_substitution(N, U, y)
     
-    '''
-    res = norm(vec_subtract(dot_product(A, x), b))
-    elapsedTime = time.time() - startTime
-    if print_info:
-        print("Last norm: " + str(res))
-        print("Elapsed time:" + str(elapsedTime))
-    '''
     return x

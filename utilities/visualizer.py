@@ -14,15 +14,19 @@ def plot_points(data, name):
     plt.xlabel('Distance')
     plt.show()
 
-def plot_interpolation(data, name, interpolated_y):
+def plot_interpolation(data, name, interpolated_y, type="semilogy"):
     x = []
     y = []
     for point in data[1:]:
         x.append(float(point[0]))
         y.append(float(point[1]))
 
-    plt.semilogy(x, y)
-    plt.semilogy(x, interpolated_y)
+    if type == "semilogy":
+        plt.semilogy(x, y)
+        plt.semilogy(x, interpolated_y)
+    elif type == "regular":
+        plt.plot(x, y)
+        plt.plot(x, interpolated_y)
     plt.title(name)
     plt.ylabel('Height')
     plt.xlabel('Distance')
